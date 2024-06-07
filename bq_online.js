@@ -16,7 +16,7 @@ let num_col = 120                                   // Number of columns (width 
 let num_row = 120								// Number of columns (width of your grid)
 let diffuse = 1				// If >0, then margolis diffusion will be enabled
 
-let Chromosome_HGT_rate = 0		// Chance of a CG gene in a living cell to copy itself over its ortholog in a neighbouring cell's genome
+var Chromosome_HGT_rate = 0		// Chance of a CG gene in a living cell to copy itself over its ortholog in a neighbouring cell's genome
 let Zero_HGT_ratio = 1		// Bias in HGT of non-producing alleles. 1 = zeros transfer at same rate as 1 (producing gene); 0 = zeros never transfer (treats them as deleted over inactivated)
 
 var list = [0,1]
@@ -373,19 +373,21 @@ function cacatoo() {
             sim.cells.reportGenomes()
             
             
-            sim.log(`At T=${sim.time} there are ${count_alive} individuals alive`,"output")
+            //sim.log(`At T=${sim.time} there are ${count_alive} individuals alive`,"output")
         }
              
         count_alive = 0
     }
     
     
-    sim.addButton("pause/continue", function () { sim.toggle_play() })
+    //sim.addButton("pause/continue", function () { sim.toggle_play() })
     //sim.addButton("step", function () { sim.step(); sim.display() })  
     
     sim.addSlider("global_mut",0,0.001,0.00001,"Mutation rate")
     sim.addSlider("CG_radius",1,10,1,"Interaction range")
     sim.addSlider("cost_per_CG",0,0.2,0.0001,"CG production costs")
+    sim.addSlider("Chromosome_HGT_rate",0,0.002,0.00001,"HGT rate")
+    
     //sim.addCustomSlider("Display interval",function (new_value) { sim.skip = new_value },0,100,5,sim.skip)
     
     sim.start()
