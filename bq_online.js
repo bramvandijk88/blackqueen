@@ -51,8 +51,8 @@ function cacatoo() {
         seed: 2,
         skip:display_interval,
         wrap: [true, true],                         // Wrapped boundary conditions? [COLS, ROWS]   
-        scale: 2.0,				                      // Scale of the grid (nxn pixels per grid point)
-        bgcolour: '#DDDDDD'
+        scale: 2,				                      // Scale of the grid (nxn pixels per grid point)
+        bgcolour: '#000000'
     }
 
     /*
@@ -72,7 +72,7 @@ function cacatoo() {
     //sim.createDisplay_discrete({model:"cells", property:"alive", label:"Alive"})
     
     sim.createDisplay_continuous({model:"cells", property:"production", label:"#CGs <b>produced</b> (cells)", 
-                                    minval:0, maxval:num_CG, decimals: 0, nticks:2, num_colours:num_CG+1,drawdots:false
+                                    minval:0, maxval:num_CG, decimals: 0, nticks:2, num_colours:num_CG+1
                                     })
     sim.createDisplay_continuous({model:"cells", property:"available", label:"#CGs <b>available</b> (environment)",
                                     minval:0, maxval:num_CG, decimals: 0, nticks:2, num_colours:num_CG+1,drawdots:false})
@@ -257,35 +257,19 @@ function cacatoo() {
                                 }                               
                         }
                         this.grid[i][j].production = prod_count
+
                     }
                 }
             }
         }
-    }
-
-
-    //	Func used to count production for each number of CGs (i.e., number 1x producers, 2x producers, etc.) for writing out
-    sim.cells.getProdAmounts = function(property, values) {
-        let sum = Array(values.length).fill(0);
-        for (let i = 0; i < this.nc; i++) {
-            for (let j = 0; j < this.nr; j++) {
-                for (let val in values)
-                if (this.grid[i][j].alive == 1 ){
-                    if (this.grid[i][j][property] == values[val]) sum[val]++;
-                }
-            }
-        }
-        return sum;
-    }     			
+    }	
      
 
     sim.cells.initialise()
-    
-
 
     //	Main grid's next state function
     sim.cells.nextState = function (i, j) {
-
+        
         if (this.grid[i][j].alive == 1) {
             count_alive++
             // Mutate at global var's rate 
@@ -316,12 +300,10 @@ function cacatoo() {
                 kills += 1
                 this.grid[i][j].alive = 0
                 this.grid[i][j].genome = undefined
-                this.grid[i][j].production = 0
+                this.grid[i][j].production = undefined
                 this.grid[i][j].available = 0
-            }
-            
+            }            
         }
-        
 
         // Check for growth
         sim.cells.checkGrowth(i,j)
@@ -402,7 +384,7 @@ function cacatoo() {
     //sim.addButton("step", function () { sim.step(); sim.display() })  
     
     sim.addSlider("global_mut",0,0.001,0.00001,"Mutation rate")
-    sim.addSlider("CG_radius",0,10,1,"Neighbourhood size")
+    sim.addSlider("CG_radius",1,10,1,"Interaction range")
     sim.addSlider("cost_per_CG",0,0.2,0.0001,"CG production costs")
     //sim.addCustomSlider("Display interval",function (new_value) { sim.skip = new_value },0,100,5,sim.skip)
     
