@@ -6,7 +6,7 @@ let base_repro_chance = 0.6		// Default chance a non-producer may be able to rep
 let starting_omni_proportion = 0.6
 var cost_per_CG = 0.0001		// Proportionate penalty for each CG 
 
-var CG_radius = 4		// radius of Moore neighbourhood for benefits from common goods
+var CG_radius = 1		// radius of Moore neighbourhood for benefits from common goods
 let temp_var
 let count_alive = 0			// How many cells are alive
 let births = 0						// Count num births
@@ -378,14 +378,16 @@ function cacatoo() {
     }
     
     
-    //sim.addButton("pause/continue", function () { sim.toggle_play() })
+    
     //sim.addButton("step", function () { sim.step(); sim.display() })  
     
     sim.addSlider("global_mut",0,0.01,0.00001,"Mutation rate")
     sim.addSlider("CG_radius",1,5,1,"Interaction range")
     sim.addSlider("cost_per_CG",0,0.1,0.0001,"CG production costs")
     sim.addSlider("Chromosome_HGT_rate",0,0.002,0.00001,"HGT rate")
-    sim.addButton("Download data", function() { 
+    sim.addHTML("form_holder","<br>")
+    sim.addButton("Pause/continue", function () { sim.toggle_play() })
+    sim.addButton("Download timeseries", function() { 
         let data = sim.cells.graphs["Frequencies of n-producers"].data
         let str = 'Time'
         for(let i=0;i<=num_CG;i++) str+= `,${i}-producer`
