@@ -1,17 +1,17 @@
       
 let num_CG = 6			// Number of CGs in system
-var global_mut = 0.000005		//	Chance for each gene in each cell to mutate into non-production per timestep
+var global_mut = 0.00005		//	Chance for each gene in each cell to mutate into non-production per timestep
 let global_death = 0.1		// Chance of death for each cell per timestep
 let base_repro_chance = 0.6		// Default chance a non-producer may be able to reproduce
 let starting_omni_proportion = 0.6
-var cost_per_CG = 0.001		// Proportionate penalty for each CG 
+var cost_per_CG = 0.0001		// Proportionate penalty for each CG 
 
-var CG_radius = 3		// radius of Moore neighbourhood for benefits from common goods
+var CG_radius = 4		// radius of Moore neighbourhood for benefits from common goods
 let temp_var
 let count_alive = 0			// How many cells are alive
 let births = 0						// Count num births
 let kills = 0 
-let maxsteps = 250000                             // How many time steps the model continues to run            
+let maxsteps = 1000000                             // How many time steps the model continues to run            
 let num_col = 120                                   // Number of columns (width of your grid)
 let num_row = 120								// Number of columns (width of your grid)
 let diffuse = 1				// If >0, then margolis diffusion will be enabled
@@ -368,12 +368,10 @@ function cacatoo() {
         sumproduction_array = sumproduction_array.slice(-100)
        // this.plotPoints(sumproduction_array,"CG production in a sample of 100 individuals",{width:800, height:300, labelsDivWidth: 0})   
         this.plotArray(production_labs,production_array,production_cols,"Frequencies of n-producers",{width:800, height:300, labelsDivWidth: 200})   
-        if(sim.time%1000==0){
+        
+        if(sim.time%100==0){
             sim.frequencies.heatmap()
             sim.cells.reportGenomes()
-            
-            
-            //sim.log(`At T=${sim.time} there are ${count_alive} individuals alive`,"output")
         }
              
         count_alive = 0
@@ -383,11 +381,19 @@ function cacatoo() {
     //sim.addButton("pause/continue", function () { sim.toggle_play() })
     //sim.addButton("step", function () { sim.step(); sim.display() })  
     
-    sim.addSlider("global_mut",0,0.001,0.00001,"Mutation rate")
-    sim.addSlider("CG_radius",1,10,1,"Interaction range")
-    sim.addSlider("cost_per_CG",0,0.2,0.0001,"CG production costs")
+    sim.addSlider("global_mut",0,0.01,0.00001,"Mutation rate")
+    sim.addSlider("CG_radius",1,5,1,"Interaction range")
+    sim.addSlider("cost_per_CG",0,0.1,0.0001,"CG production costs")
     sim.addSlider("Chromosome_HGT_rate",0,0.002,0.00001,"HGT rate")
-    
+    sim.addButton("Download data", function() { 
+        let data = sim.cells.graphs["Frequencies of n-producers"].data
+        let str = 'Time'
+        for(let i=0;i<=num_CG;i++) str+= `,${i}-producer`
+        str += '\n'
+        for(let i=0;i<data.length; i++)
+            if(data[i][0]%100==0)  str+= data[i] + '\n'
+        sim.write(str,"Timeseries_BQ.txt")
+    }) 
     //sim.addCustomSlider("Display interval",function (new_value) { sim.skip = new_value },0,100,5,sim.skip)
     
     sim.start()
