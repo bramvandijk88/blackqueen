@@ -1,6 +1,6 @@
       
 let num_CG = 6			// Number of CGs in system
-var global_mut = 0.00005		//	Chance for each gene in each cell to mutate into non-production per timestep
+var global_mut = 0.000005		//	Chance for each gene in each cell to mutate into non-production per timestep
 let global_death = 0.1		// Chance of death for each cell per timestep
 let base_repro_chance = 0.6		// Default chance a non-producer may be able to reproduce
 let starting_omni_proportion = 0.6
@@ -387,7 +387,7 @@ function cacatoo() {
     sim.addSlider("Chromosome_HGT_rate",0,0.002,0.00001,"HGT rate")
     sim.addHTML("form_holder","<br>")
     sim.addButton("Pause/continue", function () { sim.toggle_play() })
-    sim.addButton("Download timeseries", function() { 
+    sim.addButton("Download data", function() { 
         let data = sim.cells.graphs["Frequencies of n-producers"].data
         let str = 'Time'
         for(let i=0;i<=num_CG;i++) str+= `,${i}-producer`
