@@ -12,8 +12,8 @@ let count_alive = 0			// How many cells are alive
 let births = 0						// Count num births
 let kills = 0 
 let maxsteps = 1000000                             // How many time steps the model continues to run            
-let num_col = 120                                   // Number of columns (width of your grid)
-let num_row = 120								// Number of columns (width of your grid)
+let num_col = 250                                   // Number of columns (width of your grid)
+let num_row = 250								// Number of columns (width of your grid)
 let diffuse = 1				// If >0, then margolis diffusion will be enabled
 
 var Chromosome_HGT_rate = 0		// Chance of a CG gene in a living cell to copy itself over its ortholog in a neighbouring cell's genome
@@ -24,7 +24,7 @@ let permCounts = undefined
 let masterPerm = undefined
 let run_num = 1
 
-var display_interval = 0
+var display_interval = 10
 var mix = 0
 
 
@@ -51,7 +51,7 @@ function cacatoo() {
         seed: 2,
         skip:display_interval,
         wrap: [true, true],                         // Wrapped boundary conditions? [COLS, ROWS]   
-        scale: 2,				                      // Scale of the grid (nxn pixels per grid point)
+        scale: 1,				                      // Scale of the grid (nxn pixels per grid point)
         bgcolour: '#000000'
     }
 
