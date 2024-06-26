@@ -1,6 +1,6 @@
       
 let num_CG = 6			// Number of CGs in system
-var global_mut = 0.000005		//	Chance for each gene in each cell to mutate into non-production per timestep
+var global_mut = 0.00005		//	Chance for each gene in each cell to mutate into non-production per timestep
 let global_death = 0.1		// Chance of death for each cell per timestep
 let base_repro_chance = 0.6		// Default chance a non-producer may be able to reproduce
 let starting_omni_proportion = 0.6
@@ -12,8 +12,8 @@ let count_alive = 0			// How many cells are alive
 let births = 0						// Count num births
 let kills = 0 
 let maxsteps = 1000000                             // How many time steps the model continues to run            
-let num_col = 250                                   // Number of columns (width of your grid)
-let num_row = 250								// Number of columns (width of your grid)
+let num_col = 160                                   // Number of columns (width of your grid)
+let num_row = 160								// Number of columns (width of your grid)
 let diffuse = 1				// If >0, then margolis diffusion will be enabled
 
 var Chromosome_HGT_rate = 0		// Chance of a CG gene in a living cell to copy itself over its ortholog in a neighbouring cell's genome
@@ -24,7 +24,7 @@ let permCounts = undefined
 let masterPerm = undefined
 let run_num = 1
 
-var display_interval = 10
+var display_interval = 0
 var mix = 0
 
 
