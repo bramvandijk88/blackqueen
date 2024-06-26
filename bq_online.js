@@ -51,7 +51,7 @@ function cacatoo() {
         seed: 2,
         skip:display_interval,
         wrap: [true, true],                         // Wrapped boundary conditions? [COLS, ROWS]   
-        scale: 1,				                      // Scale of the grid (nxn pixels per grid point)
+        scale: 2,				                      // Scale of the grid (nxn pixels per grid point)
         bgcolour: '#000000'
     }
 
